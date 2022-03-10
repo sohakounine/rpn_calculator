@@ -1,38 +1,21 @@
-function reversePolish(newExpr) {
-    let expr = newExpr.split(" ");
-    let stack = [];
-    if (expr === '') {
-        return 0;
-    }
-    for (let i = 0; i < expr.length; i++) {
-        if (!isNaN(expr[i]) && isFinite(expr[i])) {
-            stack.push(expr[i]);
-
-        } else {
-            let a = stack.pop();
-            let b = stack.pop();
-            if (expr[i] === "+") {
-                stack.push(parseInt(a) + parseInt(b));
-            } else if (expr[i] === "-") {
-                stack.push(parseInt(b) - parseInt(a));
-            } else if (expr[i] === "*") {
-                stack.push(parseInt(a) * parseInt(b));
-            } else if (expr[i] === "/") {
-                stack.push(parseInt(b) / parseInt(a));
-            } else if (expr[i] === "^") {
-                stack.push(Math.pow(parseInt(b), parseInt(a)));
-            } else if (expr[i] === "q") {
-                process.exit()
-
-            }
+function reverse_polish_notation(s) {
+    var st, tk, i, x, y, z
+    s = s.length > 0 ? s.split(',') : []
+    st = []
+    for (i = 0; i < s.length; ++i) {
+        tk = s[i]
+        if (/^[+-]?(\.\d+|\d+(\.\d*)?)$/.test(tk))
+            z = Number(tk)
+        else {
+            if (tk.length > 1 || '+-*/'.indexOf(tk) == -1 || st.length < 2) break
+            y = st.pop();
+            x = st.pop();
+            z = eval(x + tk + ' ' + y)
         }
+        st.push(z)
     }
-
-    if (stack.length > 1) {
-        return "ERROR";
-    } else {
-        return stack[0];
-    }
+    return i < s.length || st.length > 1 ? 'error' :
+        st.length == 1 ? st.pop() : ''
 }
-
-console.log(reversePolish('2 4 6 * +'));
+var eval_ans = reverse_polish_notation(process.argv.splice(2).toString());
+console.log(eval_ans);
