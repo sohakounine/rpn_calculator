@@ -20,10 +20,3 @@ function reverse_polish_notation(s) {
 var eval_ans = reverse_polish_notation(process.argv.splice(2).toString());
 console.log(eval_ans);
 module.exports.reverse_polish_notation = reverse_polish_notation;
-
-
-//   module.exports.add = add;
-//   module.exports.subtract = subtract;
-//   module.exports.multiply = multiply;
-//   module.exports.divide = divide;
-//   module.exports.modulo = modulo;
